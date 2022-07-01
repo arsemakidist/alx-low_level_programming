@@ -2,7 +2,7 @@
 /**
 * main -Entry point
 *
-* Return: Always 0 (Success/Currect)
+* Return: Always 0 (Success/Correct)
 */
 int main(void)
 {
@@ -15,6 +15,6 @@ else if (alphabet == 'e')
 continue;
 putchar(alphabet);
 }
-putchar('\n);
+putchar ('\n);
 return (0)
 }
