@@ -11,7 +11,7 @@ for (alphabet = 'a'; alphabet <= 'z'; alphabet++)
 {
 if (alphabet == 'q')
 continue;
-else is (alphabet == 'e')
+else if (alphabet == 'e')
 continue;
 putchar(alphabet);
 }
