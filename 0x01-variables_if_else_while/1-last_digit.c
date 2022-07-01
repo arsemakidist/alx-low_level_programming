@@ -2,9 +2,9 @@
 #include <time.h>
 #include <stdio.h>
 /**
-* main - Energy point
+* main - Entry point
 *
-* Return: Always 0 (success/correct)
+* Return: Always 0 (Success/Correct)
 */
 int main(void)
 {
