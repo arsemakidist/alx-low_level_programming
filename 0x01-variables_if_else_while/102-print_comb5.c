@@ -4,7 +4,7 @@
 *
 * Return: Always 0 (Success/Correct)
 */
-int mai(void)
+int main(void)
 {
 int i, j;
 for (i = 0; j <= 99; j++)
