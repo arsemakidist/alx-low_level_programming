@@ -2,7 +2,7 @@
 /**
 * main - Entry point
 *
-* Return: Always returns 0
+* Return: Always 0 (Success/Correct)
 */
 int main(void)
 {
@@ -18,8 +18,8 @@ putchar((i % 48) + '0');
 putchar((j % 49) + '0');
 if (i != 56 || j != 57)
 {
-putchar('44');
-putchar('32');
+putchar(',');
+putchar(' ');
 }
 }
 }
