@@ -8,7 +8,7 @@ int main(void)
 {
 int i;
 int j;
-for (i = 48; j <= 57; i++)
+for (i = 48; i <= 57; i++)
 {
 for (j = 49; j <= 57; j++)
 {
@@ -18,8 +18,8 @@ putchar((i % 48) + '0');
 putchar((j % 49) + '0');
 if (i != 56 || j != 57)
 {
-putchar(',');
-putchar(' ');
+putchar('44');
+putchar('32');
 }
 }
 }
