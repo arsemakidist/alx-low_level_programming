@@ -8,15 +8,15 @@ int main(void)
 {
 int i;
 int j;
-for (i = 10; j <= 19; i++)
+for (i = 48; j <= 57; i++)
 {
-for (j = 10; j <= 19; j++)
+for (j = 49; j <= 57; j++)
 {
-if ((j % 10) > (i % 10))
+if ((j % 49) > (i % 48))
 {
-putchar((i % 10) + '0');
-putchar((j % 10) + '0');
-if (i != 18 || j != 19)
+putchar((i % 48) + '0');
+putchar((j % 49) + '0');
+if (i != 56 || j != 57)
 {
 putchar(',');
 putchar(' ');
