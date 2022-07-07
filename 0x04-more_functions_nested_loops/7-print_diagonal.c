@@ -20,3 +20,9 @@ putchar (' ');
 putchar (92);
 putchar ('\n');
 }
+}
+else
+{
+putchar ('\n');
+}
+}
