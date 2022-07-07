@@ -6,6 +6,7 @@
 *
 * Return: Always 0 (Successs/correct)
 */
+void positive_or_negative(int i)
 int main(void)
 {
 int n;
