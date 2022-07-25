@@ -1,96 +1,81 @@
 #include "main.h"
+int strlen_no_wilds(char *str);
+void iterate_wild(char **wildstr);
+char *postfix_match(char *str, char *postfix);
+int wildcmp(char *s1, char *s2);
 /**
-* strtow - splits a string into words
-* @str: string of words to be split
-* Return: double pointer to strings
+* strlen_no_wilds - Returns the length of a string,
+* ignoring wildcard characters.
+* @str: The string to be measured.
+* Return: The length.
 */
-char **strtow(char *str)
+int strlen_no_wilds(char *str)
 {
-char **ptr;
-int i, k, len, start, end, j = 0;
-int words =  countWords(str);
-if (!str || !countWords(str))
-return (NULL);
-ptr = malloc(sizeof(char *) * (words + 1));
-if (!ptr)
-return (NULL);
-for (i = 0; i < words; i++)
+int len = 0, index = 0;
+if (*(str + index))
 {
-start = startIndex(str, j);
-end = endIndex(str, start);
-len = end - start;
-ptr[i] = malloc(sizeof(char) * (len + 1));
-if (!ptr[i])
-{
-i -= 1;
-while (i >= 0)
-{
-free(ptr[i]);
-i--;
-}
-free(ptr);
-return (NULL);
-}
-for (k = 0; k < len; k++)
-ptr[i][k] = str[start++];
-ptr[i][k++] = '\0';
-j = end + 1;
-}
-ptr[i] = NULL;
-return (ptr);
-}
-/**
-* isSpace - determines if character is a space or not
-* @c: input char
-* Return: 1 if true or 0 or not
-*/
-int isSpace(char c)
-{
-return (c == ' ');
-}
-/**
-* startIndex - returns first index of non-space char
-* @s: input string
-* @index: starting index
-* Return: index of first non-space char
-*/
-int startIndex(char *s, int index)
-{
-while (isSpace(*(s + index)))
+if (*str != '*')
+len++;
 index++;
-return (index);
+len += strlen_no_wilds(str + index);
+}
+return (len);
 }
 /**
-* endIndex - returns last index of non-space char
-* @s: input string
-* @index: starting index
-* Return: index of last index of non-space char
+* iterate_wild - Iterates through a string located at a wildcard
+* until it points to a non-wildcard character.
+* @wildstr: The string to be iterated through.
 */
-int endIndex(char *s, int index)
+void iterate_wild(char **wildstr)
 {
-while (!isSpace(*(s + index)))
-index++;
-return (index);
+if (**wildstr == '*')
+{
+(*wildstr)++;
+iterate_wild(wildstr);
+}
 }
 /**
-* countWords - counts numbers of words in string
-* @s: input string
-* Return: number of words
+* postfix_match - Checks if a string str matches the postfix of
+* another string potentially containing wildcards.
+* @str: The string to be matched.
+* @postfix: The postfix.
+*
+* Return: If str and postfix are identical - a pointer to the null byte
+* located at the end of postfix.
+* Otherwise - a pointer to the first unmatched character in postfix.
 */
-int countWords(char *s)
+char *postfix_match(char *str, char *postfix)
 {
-int wordOn = 0;
-int words = 0;
-while (*s)
+int str_len = strlen_no_wilds(str) - 1;
+int postfix_len = strlen_no_wilds(postfix) - 1;
+if (*postfix == '*')
+iterate_wild(&postfix);
+if (*(str + str_len - postfix_len) == *postfix && *postfix != '\0')
 {
-if (isSpace(*s) && wordOn)
-wordOn = 0;
-else if (!isSpace(*s) && !wordOn)
-{
-wordOn = 1;
-words++;
+postfix++;
+return (postfix_match(str, postfix));
 }
-s++;
+return (postfix);
 }
-return (words);
+/**
+*
+* wildcmp - Compares two strings, considering wildcard characters.
+* @s1: The first string to be compared.
+* @s2: The second string to be compared - may contain wildcards.
+*
+* Return: If the strings can be considered identical - 1.
+* Otherwise - 0.
+*/
+int wildcmp(char *s1, char *s2)
+{
+if (*s2 == '*')
+{
+iterate_wild(&s2);
+s2 = postfix_match(s1, s2);
+}
+if (*s2 == '\0')
+return (1);
+if (*s1 != *s2)
+return (0);
+return (wildcmp(++s1, ++s2));
 }
