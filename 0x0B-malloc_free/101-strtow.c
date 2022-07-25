@@ -58,7 +58,6 @@ return (postfix_match(str, postfix));
 return (postfix);
 }
 /**
-*
 * wildcmp - Compares two strings, considering wildcard characters.
 * @s1: The first string to be compared.
 * @s2: The second string to be compared - may contain wildcards.
@@ -66,7 +65,7 @@ return (postfix);
 * Return: If the strings can be considered identical - 1.
 * Otherwise - 0.
 */
-int wildcmp(char *s1, char *s2)
+int wildcmp (char *s1, char *s2)
 {
 if (*s2 == '*')
 {
