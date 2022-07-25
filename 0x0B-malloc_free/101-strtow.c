@@ -1,80 +1,64 @@
 #include "main.h"
-int strlen_no_wilds(char *str);
-void iterate_wild(char **wildstr);
-char *postfix_match(char *str, char *postfix);
-int wildcmp(char *s1, char *s2);
+#include <stdlib.h>
 /**
-* strlen_no_wilds - Returns the length of a string,
-* ignoring wildcard characters.
-* @str: The string to be measured.
-* Return: The length.
+* ch_free_grid - frees a 2 dimensional array.
+* @grid: multidimensional array of char.
+* @height: height of the array.
+* Return: no return
 */
-int strlen_no_wilds(char *str)
+void ch_free_grid(char **grid, unsigned int height)
 {
-int len = 0, index = 0;
-if (*(str + index))
+if (grid != NULL && height != 0)
 {
-if (*str != '*')
-len++;
-index++;
-len += strlen_no_wilds(str + index);
-}
-return (len);
-}
-/**
-* iterate_wild - Iterates through a string located at a wildcard
-* until it points to a non-wildcard character.
-* @wildstr: The string to be iterated through.
-*/
-void iterate_wild(char **wildstr)
-{
-if (**wildstr == '*')
-{
-(*wildstr)++;
-iterate_wild(wildstr);
+for (; height > 0; height--)
+free(grid[height]);
+free(grid[height]);
+free(grid);
 }
 }
 /**
-* postfix_match - Checks if a string str matches the postfix of
-* another string potentially containing wildcards.
-* @str: The string to be matched.
-* @postfix: The postfix.
-*
-* Return: If str and postfix are identical - a pointer to the null byte
-* located at the end of postfix.
-* Otherwise - a pointer to the first unmatched character in postfix.
+* strtow - splits a string into words.
+* @str: string.
+* Return: pointer of an array of integers
 */
-char *postfix_match(char *str, char *postfix)
+char **strtow(char *str)
 {
-int str_len = strlen_no_wilds(str) - 1;
-int postfix_len = strlen_no_wilds(postfix) - 1;
-if (*postfix == '*')
-iterate_wild(&postfix);
-if (*(str + str_len - postfix_len) == *postfix && *postfix != '\0')
+char **aout;
+unsigned int c, height, i, j, a1;
+if (str == NULL || *str == '\0')
+return (NULL);
+for (c = height = 0; str[c] != '\0'; c++)
 {
-postfix++;
-return (postfix_match(str, postfix));
+if (str[c] != ' ' && (str[c + 1] == ' ' || str[c + 1] == '\0'))
+height++;
 }
-return (postfix);
-}
-/**
-* wildcmp - Compares two strings, considering wildcard characters.
-* @s1: The first string to be compared.
-* @s2: The second string to be compared - may contain wildcards.
-*
-* Return: If the strings can be considered identical - 1.
-* Otherwise - 0.
-*/
-int wildcmp(char *s1, char *s2)
+aout = malloc((height + 1) * sizeof(char *));
+if (aout == NULL || height == 0)
 {
-if (*s2 == '*')
-{
-iterate_wild(&s2);
-s2 = postfix_match(s1, s2);
+free(aout);
+return (NULL);
 }
-if (*s2 == '\0')
-return (1);
-if (*s1 != *s2)
-return (0);
-return (wildcmp(++s1, ++s2));
+for (i = a1 = 0; i < height; i++)
+{
+for (c = a1; str[c] != '\0'; c++)
+{
+if (str[c] == ' ')
+a1++;
+if (str[c] != ' ' && (str[c + 1] == ' ' || str[c + 1] == '\0'))
+{
+aout[i] = malloc((c - a1 + 2) * sizeof(char));
+if (aout[i] == NULL)
+{
+ch_free_grid(aout, i);
+return (NULL);
+}
+break;
+}
+}
+for (j = 0; a1 <= c; a1++, j++)
+aout[i][j] = str[a1];
+aout[i][j] = '\0';
+}
+aout[i] = NULL;
+return (aout);
 }
