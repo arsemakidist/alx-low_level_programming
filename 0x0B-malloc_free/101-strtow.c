@@ -65,7 +65,7 @@ return (postfix);
 * Return: If the strings can be considered identical - 1.
 * Otherwise - 0.
 */
-int wildcmp (char *s1, char *s2)
+int wildcmp(char *s1, char *s2)
 {
 if (*s2 == '*')
 {
