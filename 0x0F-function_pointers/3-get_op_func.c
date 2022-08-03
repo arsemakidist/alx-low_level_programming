@@ -20,7 +20,7 @@ int i = 0;
 while (i < 5)
 {
 if (strcmp(s, ops[i].op) == 0)
-return (ops[i].f);	
+return (ops[i].f);
 i++;
 }
 return (0);
