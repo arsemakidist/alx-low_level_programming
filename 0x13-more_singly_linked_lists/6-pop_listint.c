@@ -16,5 +16,5 @@ num = (*head)->n;
 temp = (*head)->next;
 free(*head);
 *head = temp;
-turn (num);
+return (num);
 }
