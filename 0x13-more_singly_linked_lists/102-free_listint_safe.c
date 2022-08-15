@@ -20,7 +20,7 @@ if (diff > 0)
 temp = (*h)->next;
 free(*h);
 *h = temp;
-ln++;
+len++;
 }
 else
 {
