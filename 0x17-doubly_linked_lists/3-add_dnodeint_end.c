@@ -24,7 +24,7 @@ new->prev = NULL;
 *head = new;
 return (new);
 }
-ast = *head;
+last = *head;
 while (last->next != NULL)
 last = last->next;
 last->next = new;
