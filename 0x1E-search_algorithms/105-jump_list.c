@@ -11,7 +11,7 @@
 * Return: index of the number
 */
 listint_t *jump_list(listint_t *list, size_t size, int value)
-{ 
+{
 	size_t index, k, m;
 	listint_t *prev;
 
