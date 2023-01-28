@@ -35,8 +35,7 @@ int recursive_search(int *array, size_t size, int value)
 		return (recursive_search(array, half, value));
 
 	half++;
-
-        return (recursive_search(array + half, size - half, value) + half);
+	return (recursive_search(array + half, size - half, value) + half);
 
 }
 
@@ -87,7 +86,7 @@ int exponential_search(int *array, size_t size, int value)
 	while (array[index] < value && index < size)
 	{
 		printf("Value checked array[%d] = [%d]\n", (int)index, array[index]);
-         	index *= 2;
+	index *= 2;
 
 	}
 
